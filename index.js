@@ -45,6 +45,7 @@ const server = new ApolloServer({
 
     type Query {
       users: [User]
+      user(id: Int): User
       products: [Product]
     }
   `,
@@ -58,6 +59,7 @@ const server = new ApolloServer({
 
     Query: {
       users: () => usersDB,
+      user: ((_, { id }) => usersDB.find(user => user.id === id)),
       products: () => productsDB,
     },
   },
