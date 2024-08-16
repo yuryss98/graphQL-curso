@@ -1,0 +1,9 @@
+type Product {
+  id: Int
+  name: String
+  userId: Int
+}
+
+type Query {
+  products: [Product]
+}
