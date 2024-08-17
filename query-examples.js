@@ -98,3 +98,20 @@
 // ai se a variavel for "true" vai pular os produtos do usuario;
 
 // ou seja @include e @skip são opostos;
+
+
+// **** variables *****
+
+// mutation createUser($name: String) {
+//   createUser(
+//     name: $name
+//   ) {
+//     id
+//     name
+//     products {
+//       id
+//       name
+//       userId
+//     }
+//   }
+// }
