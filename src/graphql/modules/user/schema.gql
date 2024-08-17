@@ -8,3 +8,7 @@ type Query {
   users: [User]
   user(id: Int): User
 }
+
+type Mutation {
+  createUser(name: String): Int!
+}
