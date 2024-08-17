@@ -2,6 +2,9 @@ const db = require('../../../db')
 const { generateId } = require('../../../utils/generate-id')
 
 module.exports = {
+  // essa query/mutation personalizada chamada de "User" funciona tanto usando o Query quanto usando o Mutation
+  // se eu fizer uma Query no resolver de "users" ou fizer uma Mutation no resolver de "createUser" posso usar o "products"
+  // que esta dentro da query personalizada de "User"
   User: {
     products: (context) => {
       return db.productsDB.filter(product => product.userId === context.id)
@@ -22,7 +25,7 @@ module.exports = {
 
       db.usersDB.push(newUser);
 
-      return newUser.id;
+      return newUser
     }
   }
 }
