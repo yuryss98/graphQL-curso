@@ -17,20 +17,20 @@ module.exports = {
   },
 
   Mutation: {
-    createUser(_, args) {
-      const userFound = db.usersDB.find(user => user.name === args.name)
+    createUser(_, { newUser }) {
+      const userFound = db.usersDB.find(user => user.name === newUser.name)
       if (userFound) {
         throw new Error('User already exists')
       }
 
-      const newUser = {
-        name: args.name,
+      const user = {
+        name: newUser.name,
         id: generateId(),
       };
 
-      db.usersDB.push(newUser);
+      db.usersDB.push(user);
 
-      return newUser
+      return user;
     }
   }
 }
