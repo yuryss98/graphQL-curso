@@ -1,5 +1,5 @@
-const { ApolloServer } = require("apollo-server")
-const { typeDefs, resolvers } = require('./src/graphql')
+import { ApolloServer } from "apollo-server"
+import { typeDefs, resolvers } from './graphql'
 
 const server = new ApolloServer({
   typeDefs,
