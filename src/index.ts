@@ -1,12 +1,24 @@
-import { ApolloServer } from "apollo-server"
-import { typeDefs, resolvers } from './graphql'
+import 'reflect-metadata';
+import { ApolloServer } from 'apollo-server';
+import { buildSchema, NonEmptyArray } from 'type-graphql';
+import { loadFilesSync } from '@graphql-tools/load-files'
+import { join } from 'path';
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  formatError: (err) => {
-    return new Error(err.message)
-  }
-})
+async function bootstrap() {
+  const resolverFiles = loadFilesSync(join(__dirname, '.', 'graphql', '**', '*.resolver.*'), { extensions: ['js', 'ts'] });
 
-server.listen(8000).then(({ url }) => console.log(`🚀 Server ready at ${url}`))
+  const resolvers = resolverFiles.flatMap((file) => Object.values(file));
+
+  const schema = await buildSchema({
+    resolvers: resolvers as NonEmptyArray<Function>
+  });
+
+  const server = new ApolloServer({
+    schema,
+    formatError: (err) => new Error(err.message),
+  });
+
+  server.listen(8000).then(({ url }) => console.log(`🚀 Server ready at ${url}`));
+}
+
+bootstrap();
